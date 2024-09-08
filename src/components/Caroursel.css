@@ -1,0 +1,6 @@
+/* components/Carousel.css */
+.carousel-item img {
+    height: 400px; /* Adjust height as needed */
+    object-fit: cover;
+  }
+  

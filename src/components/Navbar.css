@@ -1,0 +1,94 @@
+/* Top section of the navbar */
+.navbar-top {
+  background-color: #5b0606; /* Dark red background for top section */
+  padding: 10px; /* Spacing for the top navbar */
+  display: flex;
+  justify-content: space-between; /* Space between left and right elements */
+  font-size: 12px; /* Smaller font size for links */
+}
+
+.navbar-right-links a {
+  margin-left: 15px; /* Space between right-side links */
+  text-decoration: none; /* Remove underline from links */
+  color: #141010; /* Dark color for right-side links */
+}
+
+.navbar-right-links a:hover {
+  color: #ffffff; /* Change color on hover */
+}
+
+/* Main navbar */
+.navbar-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 40px; /* Main navbar padding for spacing */
+  background-color: #ffffff; /* White background */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.logo img {
+  max-width: 140px; /* Control the logo size */
+}
+
+.threedot img {
+  max-width: 50px; /* Control the size of any additional icon like a three-dot menu */
+}
+
+.nav-links {
+  list-style: none; /* Remove default list styling */
+  display: flex;
+  gap: 20px; /* Space between navbar links */
+}
+
+.nav-links li {
+  font-size: 16px; /* Font size for navbar links */
+}
+
+.nav-links a {
+  text-decoration: none; /* Remove underline from links */
+  color: #000; /* Black color for the main links */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+.nav-links a:hover {
+  color: #ff5722; /* Orange color on hover */
+}
+
+/* Search bar styling */
+.search-bar {
+  display: flex;
+  align-items: center; /* Center the input and button vertically */
+}
+
+.search-bar input {
+  padding: 8px; /* Inner spacing of the search input */
+  border: 1px solid #ddd; /* Light border for input */
+  border-radius: 5px 0 0 5px; /* Rounded corners only on the left */
+  outline: none; /* Remove the outline on focus */
+  width: 250px; /* Control input width */
+}
+
+.search-bar button {
+  padding: 8px 15px; /* Button padding for better touch target */
+  border: none; /* Remove default border */
+  background-color: #ff5722; /* Orange background for the button */
+  color: #fff; /* White text color */
+  border-radius: 0 5px 5px 0; /* Rounded corners only on the right */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+.search-bar button:hover {
+  background-color: #e64a19; /* Darker shade of orange on hover */
+}
+
+/* Cart icon styling */
+.cart-icon img {
+  width: 35px; /* Set the width of the cart icon */
+  cursor: pointer; /* Pointer cursor for the cart */
+}
+
+.cart-icon img:hover {
+  opacity: 0.8; /* Slight opacity change on hover */
+}

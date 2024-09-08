@@ -1,21 +1,38 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { Link } from 'react-router-dom'; 
+function RegisterLogin() {
+  const [email, setEmail] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
-function Register_Login() {
-  const [emailOrPhone, setEmailOrPhone] = useState('');
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle the login logic here
-    console.log('Login submitted with:', emailOrPhone);
+
+    try {
+      // Check if the email exists
+      const response = await axios.post('http://localhost:8080/api/check=${email}');
+
+      if (response.status === 200) {
+        // If email exists, redirect to home page
+        navigate('/components/Home');
+      } else {
+        setErrorMessage('Email not found.');
+      }
+    } catch (error) {
+      console.error("Error checking email:", error);
+      setErrorMessage('An error occurred while checking email.');
+    }
   };
 
   return (
     <div style={styles.container}>
       <div style={styles.header}>
-        <h1 style={styles.logo}>PRICE PEEK.COM</h1>
+        <h1 style={styles.logo}>PRICE PEEK</h1>
         <input
           type="text"
-          placeholder="What do you want to compare ?"
+          placeholder="What do you want to Search & compare?"
           style={styles.searchBar}
         />
         <div style={styles.helpLogin}>
@@ -24,18 +41,18 @@ function Register_Login() {
         </div>
       </div>
       <form style={styles.form} onSubmit={handleSubmit}>
-        <h2 style={styles.title}>Login or signup</h2>
+        <h2 style={styles.title}>Login or Signup</h2>
         <p style={styles.subtitle}>We will send an SMS to verify</p>
         <input
           type="text"
-          placeholder="Enter phone or email"
-          value={emailOrPhone}
-          onChange={(e) => setEmailOrPhone(e.target.value)}
+          placeholder="Enter email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           style={styles.input}
         />
-        <button type="submit" style={styles.continueButton}>
-          Continue
-        </button>
+        <button type="submit" style={styles.continueButton}>Continue</button>
+        <li><Link to="/createaccount">Sign Up</Link></li>
+        {errorMessage && <p style={styles.errorMessage}>{errorMessage}</p>}
         <p style={styles.orText}>Or continue with social account</p>
         <button type="button" style={styles.googleButton}>
           <img
@@ -59,13 +76,13 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#064472',
+    backgroundColor: '#FFFFFF',
     padding: '10px',
     color: 'white',
   },
   logo: {
     fontSize: '24px',
-    color: '#3dd9e3',
+    color: '#000000',
   },
   searchBar: {
     padding: '8px',
@@ -136,6 +153,10 @@ const styles = {
     width: '20px',
     height: '20px',
   },
+  errorMessage: {
+    color: 'red',
+    marginBottom: '20px',
+  },
 };
 
-export default Register_Login;
+export default RegisterLogin;
