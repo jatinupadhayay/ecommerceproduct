@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
+
 function RegisterLogin() {
   const [email, setEmail] = useState('');
+  const [password,setpassword]=useState('')
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
@@ -12,17 +14,29 @@ function RegisterLogin() {
 
     try {
       // Check if the email exists
-      const response = await axios.post('http://localhost:8080/api/check=${email}');
+      const response1 = await axios.get(`http://localhost:8080/api/users/check?email=${email}`);
 
-      if (response.status === 200) {
+      const response2 = await axios.get(`http://localhost:8080/api/users/check2?password=${password}`);
+
+
+      if (response1.status === 200) {
+        if(response2.status === 200){
         // If email exists, redirect to home page
-        navigate('/components/Home');
-      } else {
-        setErrorMessage('Email not found.');
+        navigate('/components/Home');}else if(response2.status===404){
+          setErrorMessage('password is wrong')
+        }
+
+      } else if (response1.status === 404){
+        setErrorMessage('Email & password not  found.');
+        navigate('/createaccount');
       }
     } catch (error) {
-      console.error("Error checking email:", error);
-      setErrorMessage('An error occurred while checking email.');
+      if (error.response && error.response.status === 400) {
+        // If email doesn't exist, redirect to signup
+        navigate('/createaccount');
+      } else {
+        setErrorMessage('wrong email and password.');
+      }
     }
   };
 
@@ -43,11 +57,19 @@ function RegisterLogin() {
       <form style={styles.form} onSubmit={handleSubmit}>
         <h2 style={styles.title}>Login or Signup</h2>
         <p style={styles.subtitle}>We will send an SMS to verify</p>
+       
         <input
           type="text"
           placeholder="Enter email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          style={styles.input}
+        />
+         <input
+          type="text"
+          placeholder="Enter Passwords"
+          value={password}
+          onChange={(e) => setpassword(e.target.value)}
           style={styles.input}
         />
         <button type="submit" style={styles.continueButton}>Continue</button>
